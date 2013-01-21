@@ -63,9 +63,8 @@ if (typeof zeSkins.imagelist == "undefined")
 			this.arg_map = this.go.merge_json(this.arg_map, this.go.arg_misc);
 			this.go.loadArgs();
 
-			//this.go.loadSkinCSS("lightbox/prettyPhoto.css");
-			//this.addskinCSS("https://raw.github.com/orenshmu/imagelist/master/lightbox/prettyPhoto.css");
-			this.addskinCSS("http://harutyunyandeveloper.github.com/davit.github.com/stylesheets/prettyPhoto.css");
+			this.go.loadSkinCSS("lightbox/prettyPhoto.css");
+			//this.addskinCSS("http://harutyunyandeveloper.github.com/davit.github.com/stylesheets/prettyPhoto.css");
 			var jss = ["flowplayer/flowplayer-3.1.4.min.js", "lightbox/zequery.js", "lightbox/jquery.prettyPhoto.js"];
 			this.go.loadSkinJSSequence(jss, function() {
 				zeQuery.noConflict();
