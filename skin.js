@@ -64,7 +64,6 @@ if (typeof zeSkins.imagelist == "undefined")
 			this.go.loadArgs();
 
 			this.go.loadSkinCSS("lightbox/prettyPhoto.css");
-			//this.addskinCSS("http://harutyunyandeveloper.github.com/davit.github.com/stylesheets/prettyPhoto.css");
 			var jss = ["flowplayer/flowplayer-3.1.4.min.js", "lightbox/zequery.js", "lightbox/jquery.prettyPhoto.js"];
 			this.go.loadSkinJSSequence(jss, function() {
 				zeQuery.noConflict();
@@ -75,19 +74,19 @@ if (typeof zeSkins.imagelist == "undefined")
 			}); 
 			this.loadItems();
 		}
-		this.addskinCSS = function(url){
-			var fileref=document.createElement("link")
-			fileref.setAttribute("rel", "stylesheet")
-			fileref.setAttribute("type", "text/css")
-			fileref.setAttribute("href", url);
-			document.getElementsByTagName("head")[0].appendChild(fileref)
-		}
 		this.attachPaginationEvents = function(){
 			var that = this;
 			var id = that.go.loaderParams["_object"];
 			var string = "#pagination_"+id;
 			zeQuery(string+" li a").live('click',function(){
 				var page = zeQuery(this).attr('data-rel');
+				if(page == 'prev'){
+					page = parseInt(zeQuery(string+" li a.active").attr('data-rel'))-1;
+					if(page < 1 ) return false;
+				}else if(page == 'next'){
+					page = parseInt(zeQuery(string+" li a.active").attr('data-rel'))+1;
+					if(page> zeQuery(string).attr('data-count')) return false;
+				}
 				that.start(parseInt(page-1)*that.go.args.per_page);
 			});				
 		}
@@ -408,33 +407,34 @@ if (typeof zeSkins.imagelist == "undefined")
 		};
 		this.createPagination = function(count,startItem){
 			var that = this;
+			var html= '';
 			var all_count  = this.go.MediaJSON.items.length;
 			var page_count = Math.ceil(all_count / count);
-			clickedPage = Math.floor(startItem/count)+1;
-			
-			var id = this.go.loaderParams["_object"];
-			var html = "<ul class='pagination' id='pagination_"+id+"'>";
-			var start = 1;
-			var max_page = page_count;
-			if(page_count > 10){
-				start = clickedPage <= 5 ? 1: clickedPage-5;
-				if(start != 1){
-					html += "<li>...</li>";
-				}
-				max_page = start+10;
-			}
-			for(i=start; i <= max_page; i++){
-					if(i > page_count) break;
-					var clickedClass = '';
-					if(i == clickedPage){
-						clickedClass="active";
+			if(page_count > 1){
+				clickedPage = Math.floor(startItem/count)+1;
+				
+				var id = this.go.loaderParams["_object"];
+				html = "<ul class='pagination' data-count='"+page_count+"'id='pagination_"+id+"'><li><a href='javascript:void(0)' data-rel='prev'>Prev</a>";
+				var start = 1;
+				var max_page = page_count;
+				if(page_count > 10){
+					start = clickedPage <= 5 ? 1: clickedPage-5;
+					if(start != 1){
+						html += "<li>...</li>";
 					}
-					html +="<li><a href='javascript:void(0)' data-rel='"+i+"' " + (clickedClass==''?'':"class='"+clickedClass+"'") +  ">"+i+"</a></li>";
+					max_page = start+10;
+				}
+				for(i=start; i <= max_page; i++){
+						if(i > page_count) break;
+						var clickedClass = '';
+						if(i == clickedPage){
+							clickedClass="active";
+						}
+						html +="<li><a href='javascript:void(0)' data-rel='"+i+"' " + (clickedClass==''?'':"class='"+clickedClass+"'") +  ">"+i+"</a></li>";
+				}
+				if( i< page_count) html += "<li>...</li>";
+				html += "<li><a href='javascript:void(0)' data-rel='next'>Next</a></ul>";
 			}
-			if( i< page_count) html += "<li>...</li>";
-			html += "</ul>";
-			
-			
 			return html;
 			
 		}
