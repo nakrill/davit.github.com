@@ -1,0 +1,6 @@
+ul.pagination  { margin:0; padding:0; list-style:none; }
+ul.pagination li a { text-decoration: none; color: #000; display: block; padding: 0 5px; }
+ul.pagination  li { display:inline-block; vertical-align: middle; }
+ul.pagination  li a:hover { background-color: #ECECEC; }
+ul.pagination  li + li {  }
+ul.pagination  li a.current{ color: #f5911e; }
