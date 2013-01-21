@@ -64,6 +64,7 @@ if (typeof zeSkins.imagelist == "undefined")
 			this.go.loadArgs();
 
 			this.go.loadSkinCSS("lightbox/prettyPhoto.css");
+			//this.addskinCSS("http://harutyunyandeveloper.github.com/davit.github.com/stylesheets/prettyPhoto.css");
 			var jss = ["flowplayer/flowplayer-3.1.4.min.js", "lightbox/zequery.js", "lightbox/jquery.prettyPhoto.js"];
 			this.go.loadSkinJSSequence(jss, function() {
 				zeQuery.noConflict();
@@ -73,6 +74,13 @@ if (typeof zeSkins.imagelist == "undefined")
 					self.attachPaginationEvents();
 			}); 
 			this.loadItems();
+		}
+		this.addskinCSS = function(url){
+			var fileref=document.createElement("link")
+			fileref.setAttribute("rel", "stylesheet")
+			fileref.setAttribute("type", "text/css")
+			fileref.setAttribute("href", url);
+			document.getElementsByTagName("head")[0].appendChild(fileref)
 		}
 		this.attachPaginationEvents = function(){
 			var that = this;
@@ -415,8 +423,8 @@ if (typeof zeSkins.imagelist == "undefined")
 				}
 				max_page = start+10;
 			}
-			for(i=start; i < max_page; i++){
-					if(i >= page_count) break;
+			for(i=start; i <= max_page; i++){
+					if(i > page_count) break;
 					var clickedClass = '';
 					if(i == clickedPage){
 						clickedClass="active";
