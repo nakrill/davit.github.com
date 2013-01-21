@@ -64,7 +64,6 @@ if (typeof zeSkins.imagelist == "undefined")
 			this.go.loadArgs();
 
 			this.go.loadSkinCSS("lightbox/prettyPhoto.css");
-			//this.addskinCSS("http://harutyunyandeveloper.github.com/davit.github.com/stylesheets/prettyPhoto.css");
 			var jss = ["flowplayer/flowplayer-3.1.4.min.js", "lightbox/zequery.js", "lightbox/jquery.prettyPhoto.js"];
 			this.go.loadSkinJSSequence(jss, function() {
 				zeQuery.noConflict();
@@ -74,13 +73,6 @@ if (typeof zeSkins.imagelist == "undefined")
 					self.attachPaginationEvents();
 			}); 
 			this.loadItems();
-		}
-		this.addskinCSS = function(url){
-			var fileref=document.createElement("link")
-			fileref.setAttribute("rel", "stylesheet")
-			fileref.setAttribute("type", "text/css")
-			fileref.setAttribute("href", url);
-			document.getElementsByTagName("head")[0].appendChild(fileref)
 		}
 		this.attachPaginationEvents = function(){
 			var that = this;
@@ -148,7 +140,7 @@ if (typeof zeSkins.imagelist == "undefined")
 			var thumbStyle = "width:" + this.go.args.thumb_w + "px;height:" + this.go.args.thumb_h + "px;";
 			var divItemStyle = thumbStyle;
 			var htm = "";
-
+            
 			var width = this.go.args.widget_w;
 			if (width) {
 				if (Number(width) == width) width += 'px';
@@ -164,7 +156,7 @@ if (typeof zeSkins.imagelist == "undefined")
 			} else {
 				height = '';
 			}
-
+			
 			htm += this.go.getCSSCode("main");
 
 			htm += '<ul class="ze_imagelist" style="' + width + height + '" id="slideshow' + id + '">';
@@ -208,8 +200,11 @@ if (typeof zeSkins.imagelist == "undefined")
 					type = "audio";
 				else if (items.items[i]['content_type'].indexOf('image/') > -1)
 					type = "image";
-
-				htm += "<li class='ze_thumb ze_type_" + type + " ze_item_number_" + (i + 1) + "'>";
+				var show_style = '';	
+				if(i<startFrom || i >= startFrom+items_count){
+					show_style = 'display:none';
+				}
+				htm += "<li class='ze_thumb ze_type_" + type + " ze_item_number_" + (i + 1) + "' style='"+show_style+"'>";
 
 				var title = " ";
 				if (this.go.args.tooltip == "title and description")
@@ -250,11 +245,9 @@ if (typeof zeSkins.imagelist == "undefined")
 					add_text = items.items[i]['title'];
 				else if (this.go.args.add_text == "description")
 					add_text = items.items[i]['description'];
-				var show_style = '';
-				if(i<startFrom || i >= startFrom+items_count){
-					show_style = 'display:none';
-				}
-				htm += "<a class='ze_box' rel='prettyPhoto[" + id + "]' href='" + link + "' title='" + lightbox_text + "' style='" + thumbStyle + show_style+"' >";
+				
+				
+				htm += "<a class='ze_box' rel='prettyPhoto[" + id + "]' href='" + link + "' title='" + lightbox_text + "' style='" + thumbStyle +"' >";
 				htm += "	<div class='ze_overlay'></div>";
 				htm += "	<div id='" + id + "_" + i + "_thumbsplash' class='ze_item' style='" + divItemStyle + "'>";
 				htm += "		<img class='ze_postar' style='" + imgstyle + "' src='" + items.items[i]["thumbnail_url"] + "' title='" + title + "' />";
@@ -264,7 +257,7 @@ if (typeof zeSkins.imagelist == "undefined")
 			}
 			htm += "</ul>";
 			if(items.items.length > items_count && this.go.args.show_pagination){
-				htm += this.createPagination(items_count);
+				htm += this.createPagination(items_count,startFrom);
 			}
 			
 			this.go.setGalleryHTML(htm);
@@ -405,15 +398,32 @@ if (typeof zeSkins.imagelist == "undefined")
 				zeQuery("a[rel^='prettyPhoto[" + id + "]']").attr("target", this.go.args.open_in_new_window ? "_blank" : "_self");
 
 		};
-		this.createPagination = function(count){
+		this.createPagination = function(count,startItem){
 			var that = this;
 			var all_count  = this.go.MediaJSON.items.length;
 			var page_count = Math.ceil(all_count / count);
+			clickedPage = Math.floor(startItem/count)+1;
+			
 			var id = this.go.loaderParams["_object"];
 			var html = "<ul class='pagination' id='pagination_"+id+"'>";
-			for(i=1;i<=page_count;i++){
-				html +="<li><a href='javascript:void(0)' data-rel='"+i+"'>"+i+"</a></li>";
+			var start = 1;
+			var max_page = page_count;
+			if(page_count > 10){
+				start = clickedPage <= 5 ? 1: clickedPage-5;
+				if(start != 1){
+					html += "<li>...</li>";
+				}
+				max_page = start+10;
 			}
+			for(i=start; i < max_page; i++){
+					if(i >= page_count) break;
+					var clickedClass = '';
+					if(i == clickedPage){
+						clickedClass="active";
+					}
+					html +="<li><a href='javascript:void(0)' data-rel='"+i+"' " + (clickedClass==''?'':"class='"+clickedClass+"'") +  ">"+i+"</a></li>";
+			}
+			if( i< page_count) html += "<li>...</li>";
 			html += "</ul>";
 			
 			
