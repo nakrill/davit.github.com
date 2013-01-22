@@ -1,0 +1,62 @@
+.fileSelect{
+	width: 60px;
+	height: 19px;
+	position: relative; 
+	overflow:hidden;  
+	cursor: pointer; 	
+	padding: 0; 	
+	background-attachment:fixed;
+	display: inline-block; zoom: 1; *display: inline;
+	margin: 5px auto -4px 5px;
+	background:url(http://www.zooeffect.com/design/images/upload.png) no-repeat;  /*delete*/
+	background-position-y:5px;
+	
+}
+.fileSelect:hover {
+     background-position-y:-9px;
+	 background-position-x:0px;
+	
+	 
+	 
+}
+.fileSelect span{ margin: 0 auto auto 15px; line-height: 22px; }
+ input[type=file] {
+	  opacity:0;
+	  filter:alpha(opacity:0);
+	  cursor:pointer;
+	  padding:0px;
+	  margin:0px;
+	  border:none;
+	  position: absolute;
+	  top: 0 ;
+	  left: 0 ;
+	  width: 150px;
+	  height: 100%;
+	  
+}
+#uploadProgress {
+	margin-top: 12px;
+}
+#cancelAll {
+	display:none;
+}
+#cancelAll.active {
+	display:inline;
+}
+.item-block.small .item-thumb a{
+	height: 75px;
+	width: 100px;
+}
+.item-block.small input, .item-block.small textarea{
+	width: 222px !important;
+}
+#_changethumbsize{
+	background-image: url(http://armecotravelcom.fatcow.com/cgi-bin/toggle.png);
+	
+}
+
+.flashBtn {
+	position: relative;
+	top: 3px;
+}
+
