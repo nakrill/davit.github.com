@@ -170,7 +170,7 @@
 					htm+='		</div>';
 					
 				}
-				htm+='		<a href="javascript:void(0)" id="cancelAll">Cancel All</a>';
+				htm+='		<a href="javascript:void(0)" id="cancelAll">Cancel Upload</a>';
 				htm+='		<a class="editor-btn" id="_detailedview" href="javascript:void(0)" style="display:none">Detailed View</a>';
 				htm+='		<a class="editor-btn" id="_gridview" href="javascript:void(0)" style="display:none">Grid View</a>';
 				htm+='		<a class="editor-btn" id="_changethumbsize" href="javascript:void(0)" style="display:none">Toggle Size</a>';
