@@ -154,7 +154,6 @@
 						
 			this.setToolbar = function(){
 				var htm='';
-				
 				//htm+='<div id="container" class="container">';
 				//htm+='	<div class="content-container clearfix">';
 				//<a class="editor-btn" id="_addmoreitems" href="javascript:void(0)" style="display:none">Upload</a>';
@@ -208,7 +207,7 @@
 					$('.item-data').css('display', 'none');
 				})
 				$("#_changethumbsize").click(function(){
-					$('.item-block').toggleClass('small');
+					$('#gridItems').toggleClass('smallThumb');
 				})
 				
 			};
@@ -217,7 +216,7 @@
 				var htm='';
 				htm+='<div class="item-block" id="id_'+curent.id+'">';
 				htm+='	<div class="item-thumb">';
-				htm+='		<a style="background-image:url(\''+curent['thumbnail_url']+'\');background-size:cover;" href="javascript:void(0)"></a>';
+				htm+='		<a style="background-image:url(\''+curent['thumbnail_url']+'\');background-size:cover;" href="javascript:void(0)" ></a>';
 				htm+='	</div>  ';
 				htm+='	<div class="item-data">';
 				htm+='		<table cellpadding="0" cellspacing="0" >';

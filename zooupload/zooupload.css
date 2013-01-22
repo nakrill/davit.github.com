@@ -43,11 +43,11 @@
 #cancelAll.active {
 	display:inline;
 }
-.item-block.small .item-thumb a{
+.smallThumb  .item-block .item-thumb  a{
 	height: 75px;
 	width: 100px;
 }
-.item-block.small input, .item-block.small textarea{
+.smallThumb .item-block  input, .item-block textarea{
 	width: 222px !important;
 }
 #_changethumbsize{
