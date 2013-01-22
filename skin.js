@@ -262,7 +262,7 @@ if (typeof zeSkins.imagelist == "undefined")
 				htm += "	<div class='ze_title'>" + add_text + "</div>";
 				htm += "</a></li>";
 			}
-			htm += "</ul><div></div>";
+			htm += "</ul>";
 			if(items.items.length > items_count && this.go.args.show_pagination){
 				htm += this.createPagination(items_count,startFrom);
 			}
