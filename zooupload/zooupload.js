@@ -217,7 +217,7 @@
 				var htm='';
 				htm+='<div class="item-block" id="id_'+curent.id+'">';
 				htm+='	<div class="item-thumb">';
-				htm+='		<a style="background-image:url(\''+curent['thumbnail_url']+'\'); href="javascript:void(0)"></a>';
+				htm+='		<a style="background-image:url(\''+curent['thumbnail_url']+'\');background-size:cover;" href="javascript:void(0)"></a>';
 				htm+='	</div>  ';
 				htm+='	<div class="item-data">';
 				htm+='		<table cellpadding="0" cellspacing="0" >';
