@@ -47,7 +47,7 @@
 	height: 75px;
 	width: 100px;
 }
-.smallThumb .item-block  input, .item-block textarea{
+.smallThumb .item-block  input, .smallThumb .item-block textarea{
 	width: 222px !important;
 }
 #_changethumbsize{
